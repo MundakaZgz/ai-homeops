@@ -1,0 +1,3 @@
+# Deployment placeholder; no services are configured yet.
+# TODO: define services after the technology stack ADR is approved.
+services: {}
