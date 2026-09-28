@@ -1,0 +1,15 @@
+{
+  "name": "ai-homeops",
+  "private": true,
+  "scripts": {
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev:backend": "pnpm --filter backend dev",
+    "test:frontend": "pnpm --filter frontend test",
+    "test:backend": "pnpm --filter backend test"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "prettier": "^3.0.0",
+    "eslint": "^8.0.0"
+  }
+}
