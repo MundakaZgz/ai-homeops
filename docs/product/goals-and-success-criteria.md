@@ -14,7 +14,7 @@ The search will start with professionals near the property. The system will find
 
 The expected value is to reduce manual coordination and use planned stays to address pending work. This improvement must be validated during the pilot.
 
-The technology stack remains undecided until the corresponding ADR is written, including backend and frontend languages and frameworks. The project will use a monorepo, follow Clean Architecture, and keep its documentation in `doc/`.
+The technology stack remains undecided until the corresponding ADR is written, including backend and frontend languages and frameworks. The project will use a monorepo, follow Clean Architecture, and keep its documentation in `docs/`.
 
 The monorepo structure and Clean Architecture remain project guidelines; product success will be evaluated through the outcomes users achieve.
 

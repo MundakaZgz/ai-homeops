@@ -4,20 +4,23 @@ Status: agreed top-level structure. This document describes the intended layout;
 
 ## Organization
 
-The project uses a monorepo. Application code, tests, scripts, and container deployment files belong under `src/`. Project documentation belongs under `doc/`.
+The project uses a monorepo. Application code, tests, scripts, and container deployment files belong under `src/`. Project documentation belongs under `docs/`, which is the only documentation folder in the repository.
 
 GitHub Actions workflow definitions are the exception: they live in `.github/workflows/` and can invoke scripts stored under `src/scripts/`.
 
 ```text
 .github/
 └── workflows/
-doc/
+docs/
 ├── README.md
 ├── product/
 │   ├── goals-and-success-criteria.md
-│   └── mvp-scope-and-non-goals.md
+│   ├── mvp-scope-and-specific-no-goals.md
+│   └── repository-structure.md
+├── development/
+│   └── branching-strategy.md
 └── architecture/
-    └── repository-structure.md
+    └── ADR/
 src/
 ├── backend/
 │   ├── domain/
@@ -47,8 +50,9 @@ src/
 | Path | Responsibility |
 | --- | --- |
 | `.github/workflows/` | GitHub Actions workflow entry points, invoking repository scripts where appropriate |
-| `doc/product/` | Product goals, success criteria, MVP scope, and explicit non-goals |
-| `doc/architecture/` | Architecture documentation, including the repository layout |
+| `docs/product/` | Product goals, success criteria, MVP scope, explicit non-goals, and the repository layout |
+| `docs/development/` | Development practices, such as the branching strategy |
+| `docs/architecture/` | Architecture documentation, including Architecture Decision Records under `ADR/` |
 | `src/backend/` | Backend application, organized according to Clean Architecture |
 | `src/frontend/` | Frontend application, with architectural layers and a presentation layer |
 | `src/tests/backend/` | Backend tests, kept outside the backend application directory |
