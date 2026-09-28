@@ -53,8 +53,8 @@ src/
 | `docs/product/` | Product goals, success criteria, MVP scope, explicit non-goals, and the repository layout |
 | `docs/development/` | Development practices, such as the branching strategy |
 | `docs/architecture/` | Architecture documentation, including Architecture Decision Records under `ADR/` |
-| `src/backend/` | Backend application, organized according to Clean Architecture |
-| `src/frontend/` | Frontend application, with architectural layers and a presentation layer |
+| `src/backend/` | Backend application (Python/FastAPI), organized according to Clean Architecture |
+| `src/frontend/` | Frontend application (Next.js), with architectural layers and a presentation layer |
 | `src/tests/backend/` | Backend tests, kept outside the backend application directory |
 | `src/tests/frontend/` | Frontend tests, kept outside the frontend application directory |
 | `src/tests/e2e/` | End-to-end tests covering the complete system, from the interface through the backend |
@@ -78,9 +78,6 @@ Internal subdirectories are intentionally left undefined. No logging subdirector
 
 ## Deferred decisions
 
-- The technology stack, including languages and frameworks, remains pending the corresponding ADR.
-- Framework-specific directories will be decided after framework selection. Next.js was discussed as an example, not selected; no `app/` directory is committed by this structure.
-- The internal organization of each layer, including frontend presentation, will be defined later.
 - Build, dependency, and test tool configuration will be determined once the tools are selected. Test tools must be configured to use the agreed directories under `src/tests/`.
 - Dockerfiles and Compose contents will be defined during implementation; their locations are agreed here.
 
