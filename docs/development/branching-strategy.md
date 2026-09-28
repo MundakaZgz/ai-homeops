@@ -1,6 +1,6 @@
 # Branching strategy
 
-Status: agreed. This document defines the repository policy; it does not imply that GitHub rules or CI checks have already been configured.
+Status: agreed. This document defines the repository policy. CI/CD is implemented with GitHub Actions; see [CI/CD strategy](ci-cd.md). GitHub rules and required status checks may still be pending configuration.
 
 ## Workflow
 
@@ -9,7 +9,7 @@ The project follows GitHub Flow for a single maintainer:
 1. Create a short-lived branch from the latest `main` for a focused change.
 2. Implement the change and perform the relevant local checks.
 3. Open a pull request targeting `main`, describing the change and referencing related issues or user stories.
-4. Review the diff and validation results. Once required CI checks are configured, they must pass before merging.
+4. Review the diff and validation results. The required GitHub Actions checks must pass before merging.
 5. Merge using **squash merge**, producing one commit on `main` for the pull request.
 6. Delete the merged branch.
 
@@ -99,9 +99,9 @@ The intended GitHub configuration is:
 - Use `main` as the default branch.
 - Require pull requests for changes to `main` and prevent direct pushes.
 - Do not require approval from another reviewer.
-- Require the relevant CI status checks once those checks exist and are configured.
+- Require the CI status checks defined in the [CI/CD strategy](ci-cd.md) once the corresponding workflows exist.
 - Use squash merge as the only enabled pull request merge method.
 - Use the pull request title as the squash commit subject.
 - Delete branches after merge, automatically where configured or manually otherwise.
 
-The exact required checks will be defined when CI is introduced. No specific CI tools, technology stack, or deployment workflow are selected by this document.
+CI/CD is implemented with GitHub Actions, as described in the [CI/CD strategy](ci-cd.md). The technology stack and deployment workflow are not selected by this document.
