@@ -16,20 +16,15 @@ services:
       - "6379:6379"
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: ai-homeops-back
     ports:
       - "8000:8000"
-    env_file: ./backend/.env
     depends_on:
       - db
       - redis
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: ai-homeops-front
     ports:
       - "3000:3000"
     environment:

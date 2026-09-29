@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "lint": "eslint . --max-warnings 0",
     "test": "vitest"
   },
   "dependencies": {
@@ -15,11 +16,19 @@
     "typescript": "latest"
   },
   "devDependencies": {
-    "vitest": "latest",
+    "@eslint/js": "9.39.5",
+    "@next/eslint-plugin-next": "16.3.7",
+    "@types/node": "26.6.3",
     "@types/react": "latest",
     "@types/react-dom": "latest",
-    "tailwindcss": "latest",
+    "@typescript-eslint/eslint-plugin": "8.71.0",
+    "@typescript-eslint/parser": "8.71.0",
+    "autoprefixer": "latest",
+    "eslint": "9.39.5",
+    "eslint-plugin-react-hooks": "5.0.0",
+    "globals": "16.0.0",
     "postcss": "latest",
-    "autoprefixer": "latest"
+    "tailwindcss": "latest",
+    "vitest": "latest"
   }
 }

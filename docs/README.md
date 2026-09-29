@@ -10,6 +10,8 @@ All project documentation lives in this folder. It is the only documentation fol
 
 ## Development
 
+- [Local development environment](development/local-dev-env.md)
+- [Local development setup](development/setup.md)
 - [Branching strategy](development/branching-strategy.md)
 
 ## Architecture

@@ -1,5 +1,8 @@
 # AI HomeOps
 
+[![Tests](https://github.com/ai-homeops/ai-homeops/actions/workflows/tests.yml/badge.svg)](https://github.com/ai-homeops/ai-homeops/actions/workflows/tests.yml)
+[![Last Commit](https://img.shields.io/github/last-commit/ai-homeops/ai-homeops)](https://github.com/ai-homeops/ai-homeops/commits/main)
+
 > An agentic AI platform for coordinating remote property maintenance.
 
 AI HomeOps explores how autonomous AI agents can coordinate real-world maintenance and operations for properties whose owners are not physically present.

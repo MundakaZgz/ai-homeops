@@ -1,101 +1,139 @@
 # Local Development Environment
 
-This document describes how to set up the AI HomeOps project locally for development.
+This guide installs and runs the current frontend and backend directly from the repository root (`ai-homeops`).
 
 ## Prerequisites
 
-To develop locally, you need to have the following installed:
+- **Node.js LTS and npm** for the frontend.
+- **Python 3.10+** for the backend.
+- **Git** to clone the repository.
+- **Docker and Docker Compose** are optional; they can run the frontend, backend, and supporting services in containers.
 
-- **Docker & Docker Compose**: Required for running the database, redis, and for containerized development.
-- **Python 3.10+**: Required for the backend development.
-- **Node.js (LTS)**: Required for the frontend development.
-- **pnpm**: Recommended package manager for the frontend.
-- **Git**: For version control.
+## Install Dependencies
 
-## Getting Started
-
-### 1. Clone and Install Dependencies
+Run these commands from the repository root after cloning:
 
 ```bash
 git clone <repository-url>
 cd ai-homeops
 
-# Install frontend dependencies
-pnpm install
-
-# Install backend dependencies (Poetry recommended)
-# If you don't have poetry: pipx install poetry
-poetry install
+# Frontend: use the package-lock.json in src/frontend
+npm ci --prefix src/frontend
 ```
 
-### 2. Environment Variables
+Create a virtual environment and install the backend requirements. On Windows PowerShell:
 
-Copy the example environment files and fill them in with your local configurations:
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r src/backend/requirements.txt
+```
+
+On macOS or Linux:
 
 ```bash
-cp .env.example .env
-cp .env.example.backend .env.backend
-cp .env.example.frontend .env.frontend
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r src/backend/requirements.txt
 ```
 
-*Note: Ensure you have your API keys (OpenAI, Anthropic, etc.) ready to put in `.env.backend`.*
+## Run the Application
 
-### 3. Start Infrastructure (Docker)
+Start each service in a separate terminal, with both terminals at the repository root. Activate the virtual environment in the backend terminal before starting the server.
 
-Use Docker Compose to spin up the core infrastructure (PostgreSQL, Redis, and any other required services):
+**Backend (FastAPI), Windows PowerShell:**
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+python -m uvicorn main:app --app-dir src/backend --reload --host 127.0.0.1 --port 8000
+```
+
+**Backend (FastAPI), macOS/Linux:**
 
 ```bash
-docker-compose up -d
+source .venv/bin/activate
+python -m uvicorn main:app --app-dir src/backend --reload --host 127.0.0.1 --port 8000
 ```
 
-### 4. Run the Application
+**Frontend (Next.js), Windows PowerShell:**
 
-You can run the services in parallel using Docker Compose (if configured) or separately:
-
-**Backend (FastAPI):**
-```bash
-# From the backend directory
-uvicorn src.backend.main:app --reload --host 0.0.0.0 --port 8000
+```powershell
+cd src/frontend
+npm run dev
 ```
 
-**Frontend (Next.js):**
-```bash
-# From the frontend directory
-pnpm dev
-```
-
-## Development Workflow
-
-### Shared Types
-Since we use a monorepo, any changes to shared types or domain models in `src/backend/domain/` should be reflected in the frontend via the shared interfaces.
-
-### Database Migrations
-Use **Alembic** for backend migrations:
+On macOS or Linux:
 
 ```bash
-# Example commands
-poetry run alembic revision --autogenerate -m "initial migration"
-poetry run alembic upgrade head
+cd src/frontend && npm run dev
 ```
 
-### Testing
-Run the test suite for each component:
+The frontend is available at `http://localhost:3000`; the backend root endpoint is at `http://127.0.0.1:8000`.
+
+### Run the Backend in Docker
+
+From the repository root, build and run the backend image:
 
 ```bash
-# Backend tests
-poetry run pytest
-
-# Frontend tests
-pnpm test
+bash src/scripts/create_backend_image.sh
+docker run --rm -p 8000:8000 ai-homeops-back
 ```
 
-## Common Commands
+The backend is available at `http://127.0.0.1:8000`. The image uses Python on Alpine Linux and runs as a non-root user.
 
-| Task | Command |
-| --- | --- |
-| Start all services | `docker-compose up -d` |
-| Stop all services | `docker-compose down` |
-| Run backend migrations | `poetry run alembic upgrade head` |
-| Run backend tests | `poetry run pytest` |
-| Run frontend tests | `pnpm test` |
-| Build Docker images | `docker-compose build` |
+### Run the Frontend in Docker
+
+From the repository root, build and run the frontend image:
+
+```bash
+bash src/scripts/create_frontend_image.sh
+docker run --rm -p 3000:3000 ai-homeops-front
+```
+
+The frontend is available at `http://localhost:3000`. The image uses Next.js standalone output and runs as a non-root user.
+
+### Run the Full Stack with Docker Compose
+
+Build both local images from the repository root, then start the Compose stack:
+
+```bash
+bash src/scripts/create_backend_image.sh
+bash src/scripts/create_frontend_image.sh
+docker compose -f src/compose.yml up -d
+```
+
+The Compose file uses the generated images `ai-homeops-back` and `ai-homeops-front`, along with the local `db` and `redis` services. The frontend is available at `http://localhost:3000` and the backend at `http://127.0.0.1:8000`. Stop the services with `docker compose -f src/compose.yml down`.
+
+The Docker images are built from the repository root so the root `.dockerignore` rules apply consistently and the Dockerfiles can access the monorepo layout without nested build contexts.
+
+## Environment Variables
+
+The current local frontend and backend do not require environment variables. The `.env.example` files previously referenced here are not present in the repository, so there is nothing to copy or configure for direct local development.
+
+## Tests
+
+Run backend tests from the repository root:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+python -m pytest tests/backend -q
+```
+
+On macOS or Linux:
+
+```bash
+source .venv/bin/activate
+python -m pytest tests/backend -q
+```
+
+Run the frontend test script from the repository root with:
+
+```bash
+cd src/frontend && npm run test -- --run
+```
+
+The project includes a minimal backend test for the root endpoint and a minimal frontend render test for the landing page. GitHub Actions also runs both suites automatically on every push and pull request.
+
+## Current Limitations
+
+- Alembic is not listed in the backend requirements, so database migration commands are not available yet.
