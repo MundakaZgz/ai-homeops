@@ -1,7 +1,8 @@
 # AI HomeOps
 
-[![Tests](https://github.com/ai-homeops/ai-homeops/actions/workflows/tests.yml/badge.svg)](https://github.com/ai-homeops/ai-homeops/actions/workflows/tests.yml)
-[![Last Commit](https://img.shields.io/github/last-commit/ai-homeops/ai-homeops)](https://github.com/ai-homeops/ai-homeops/commits/main)
+[![Tests](https://github.com/MundakaZgz/ai-homeops/actions/workflows/tests.yml/badge.svg)](https://github.com/MundakaZgz/ai-homeops/actions/workflows/tests.yml)
+[![Last Commit](https://img.shields.io/github/last-commit/MundakaZgz/ai-homeops)](https://github.com/MundakaZgz/ai-homeops/commits)
+
 
 > An agentic AI platform for coordinating remote property maintenance.
 
