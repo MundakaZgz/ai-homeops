@@ -1,0 +1,18 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ollama": {
+        "npm": "@ai-sdk/ollama",
+        "name": "LM Studio (local)",
+        "options": {
+            "baseUrl": "http://localhost:1234/v1"
+        },
+        "models": {
+            "qwen/qwen3.8-27b": {
+                "name": "Qwen 3.8-27B",
+                "description": "Qwen 3.8-27B is a large language model developed by Qwen AI, designed for a wide range of natural language understanding and generation tasks."
+            }
+        }
+    }
+  }
+}
